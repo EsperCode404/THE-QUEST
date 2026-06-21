@@ -52,12 +52,21 @@
                 ⚠️ EXECUTE THIS QUEST IMMEDIATELY. NO DELAYS.
             </p>
 
-            <div class="mt-8 border-l-2 border-[#00f0ff] pl-3">
-                <div class="font-mono text-[11px] font-bold text-[#00f0ff] tracking-widest uppercase">
-                    ⏳ TIME REMAINING
+            <div class="timer-pod-matrix">
+                <div
+                    class="font-mono text-[9px] font-bold text-[#00f0ff] tracking-widest uppercase flex items-center gap-2">
+                    <span class="animate-pulse">⏳</span> TACTICAL TIME REMAINING
                 </div>
-                <div id="timeRemaining" class="text-5xl font-black text-white tracking-tighter mt-1 cyberpunk-clock">
-                    00:04:12
+
+                <div class="flex items-baseline mt-1">
+                    <span id="timeRemaining" class="cyberpunk-clock">00:04:12</span>
+                    <span id="msNode" class="ms-matrix-node">.00</span>
+                </div>
+
+                <div class="telemetry-row select-none">
+                    <span>SYS.LOC_C2 // ONLINE</span>
+                    <div class="telemetry-bar"></div>
+                    <span>SEC_TRK_V3</span>
                 </div>
             </div>
         </section>

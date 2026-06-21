@@ -73,7 +73,19 @@
     const windows = extractScheduledTasks();
 
     function pad(n) { return String(n).padStart(2, '0'); }
-    function formatTime(d) { return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`; }
+
+    // 12-Hour System Clock Realtime Formatter
+    function formatTime(d) {
+        let hours = d.getHours();
+        const minutes = pad(d.getMinutes());
+        const seconds = pad(d.getSeconds());
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+
+        return `${pad(hours)}:${minutes}:${seconds} ${ampm}`;
+    }
 
     function formatDay(d) {
         return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase();
@@ -141,17 +153,41 @@
 
         const next = getNextWindowFrom(now);
         if (nextWindowEl) {
-            nextWindowEl.textContent = next ? `NEXT SEQUENCE: ${next.w.name.toUpperCase()} @ ${next.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}` : 'NEXT SEQUENCE: NONE SCHEDULED';
+            if (next) {
+                const rawTime = next.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+                nextWindowEl.innerHTML = `NEXT SEQUENCE: <span style="color: var(--active); text-shadow: 0 0 6px rgba(0, 240, 255, 0.5); font-weight:700;">${next.w.name.toUpperCase()}</span> @ <span style="color: #ffffff;">${rawTime}</span>`;
+            } else {
+                nextWindowEl.textContent = 'NEXT SEQUENCE: NONE SCHEDULED';
+            }
         }
     }
 
     function updateCountdown(targetDate, now) {
         if (!timeRemainingEl) return;
-        const diff = Math.max(0, Math.floor((targetDate - now) / 1000));
-        const hh = Math.floor(diff / 3600);
-        const mm = Math.floor((diff % 3600) / 60);
-        const ss = diff % 60;
-        timeRemainingEl.textContent = `${pad(hh)}:${pad(mm)}:${pad(ss)}`;
+
+        const diffMs = targetDate - now;
+
+        if (diffMs <= 0) {
+            timeRemainingEl.textContent = "00:00:00";
+            timeRemainingEl.removeAttribute('data-time');
+            const msNode = document.getElementById('msNode');
+            if (msNode) msNode.textContent = ".00";
+            return;
+        }
+
+        const totalSeconds = Math.floor(diffMs / 1000);
+        const hh = Math.floor(totalSeconds / 3600);
+        const mm = Math.floor((totalSeconds % 3600) / 60);
+        const ss = totalSeconds % 60;
+        const ms = Math.floor((diffMs % 1000) / 10);
+
+        const currentCountdownStr = `${pad(hh)}:${pad(mm)}:${pad(ss)}`;
+
+        timeRemainingEl.textContent = currentCountdownStr;
+        timeRemainingEl.setAttribute('data-time', currentCountdownStr);
+
+        const msNode = document.getElementById('msNode');
+        if (msNode) msNode.textContent = `.${pad(ms)}`;
     }
 
     function updateButtonState(enabled) {
@@ -181,10 +217,10 @@
 
     function logToFeed(text) {
         if (!feedContentEl) return;
-        const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+        const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
         feedContentEl.textContent = `[${timestamp}] ${text}\n` + feedContentEl.textContent;
     }
 
     updateUI();
-    setInterval(updateUI, 500);
+    setInterval(updateUI, 33);
 })();

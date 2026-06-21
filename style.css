@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
+
 :root {
     --bg: #000000;
     --fg: #a6ebff;
@@ -17,14 +19,14 @@ html,
 body {
     height: 100%;
     height: 100dvh;
-    /* Dynamic viewport adjustment for mobile browsers */
     margin: 0;
     padding: 0;
     background: var(--bg);
     color: var(--fg);
-    font-family: ui-monospace, "SF Mono", "Roboto Mono", Menlo, Monaco, monospace !important;
+    font-family: "Rajdhani", ui-monospace, Menlo, Monaco, Consolas, monospace !important;
     overflow: hidden;
-    /* Lock viewport shifting */
+    font-feature-settings: "tnum" 1, "zero" 1;
+    text-rendering: geometricPrecision;
 }
 
 /* THE COPIED BANNER FONT AND STYLE RULESET */
@@ -47,28 +49,60 @@ body {
     border-left: 2px solid var(--active);
     padding: 0.75rem 1rem;
     margin-top: 0.75rem;
+    letter-spacing: 0.02em;
 }
 
-/* Hard Numeric Character Structure */
 .cyberpunk-clock {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
-    font-size: 3.5rem;
-    /* Massive structural emphasis */
+    position: relative;
+    display: inline-block;
+    font-family: "Orbitron", ui-monospace, monospace !important;
+    font-size: 3.45rem;
     font-weight: 900;
     line-height: 1;
+    letter-spacing: 0.02em;
     color: #ffffff;
-    letter-spacing: -0.04em;
-    /* Clean dual-tone neon depth */
-    text-shadow: 2px 2px 0px var(--accent), -1px -1px 0px rgba(0, 240, 255, 0.4);
+    text-shadow:
+        2px 0 0 #ff0055,
+        -1px 0 0 #00f0ff,
+        0 0 1px rgba(255, 255, 255, 0.4);
+    filter: contrast(1.15) saturate(1.1);
+    z-index: 1;
 }
 
-/* High-Frequency Millisecond Node */
+.cyberpunk-clock::before {
+    content: attr(data-time);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: rgba(255, 0, 85, 0.18);
+    transform: translate(1px, 0);
+    z-index: -1;
+    filter: blur(0.2px);
+    pointer-events: none;
+}
+
+.cyberpunk-clock::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.08) 48%,
+            transparent 52%,
+            transparent 100%);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
 .ms-matrix-node {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 800;
     color: var(--accent);
-    margin-left: 0.25rem;
-    text-shadow: none;
+    margin-left: 0.18rem;
+    letter-spacing: 0.02em;
+    text-shadow: 1px 0 0 rgba(255, 0, 85, 0.8);
 }
 
 /* Micro-Telemetry Tech Subtext Layout */
@@ -83,6 +117,7 @@ body {
     font-weight: 700;
     color: rgba(255, 255, 255, 0.25);
     letter-spacing: 0.1em;
+    opacity: 0.75;
 }
 
 .telemetry-bar {
@@ -95,6 +130,10 @@ body {
 
 /* ACTION BUTTON STRUCTS */
 .circle-btn {
+    font-family: "Rajdhani", ui-monospace, monospace !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
     box-sizing: border-box;
     transition: box-shadow .15s ease, border-color .15s ease;
 }
@@ -118,9 +157,55 @@ body {
 }
 
 /* Mobile terminal screen logbox height adjustment */
-@media (max-wmd: 768px) {
+@media (max-width: 768px) {
     #feedContent {
         height: 4rem !important;
         /* Shaves off overflow spacing on mobile viewports */
     }
+}
+
+button,
+.nav-item {
+    font-family: "Rajdhani", ui-monospace, monospace !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   CRITICAL DATA OVERRIDE: FOOTER SEQUENCE HIGHLIGHT
+   ========================================================================== */
+
+/* Target the absolute last text node or container tracking your next sequence info */
+body>div:last-child,
+footer,
+[id*="nextWindow"],
+div[style*="position: absolute"]:last-of-type {
+    color: var(--active) !important;
+    /* Forces neon cyan matrix visibility */
+    font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+
+    /* Adds localized high-visibility HUD glow */
+    text-shadow: 0 0 4px rgba(0, 240, 255, 0.65) !important;
+    opacity: 1 !important;
+}
+
+/* ==========================================================================
+   HUD INDICATOR INJECTION MATRIX
+   ========================================================================== */
+
+/* Target the next sequence element and inject the tactical indicator string */
+#nextWindow::before,
+body>div:last-child::before,
+footer::before {
+    content: "---> " !important;
+    color: var(--accent) !important;
+    /* Striking Crimson indicator buff */
+    text-shadow: 0 0 6px var(--accent) !important;
+    font-weight: 900 !important;
+    margin-right: 4px;
 }
