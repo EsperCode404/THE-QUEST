@@ -38,11 +38,13 @@ body {
 
 /* CYBERPUNK CLOCK OVERRIDE */
 .cyberpunk-clock {
-    font-family: "Courier New", Courier, monospace;
-    font-weight: 950;
+    /* Enforce a robust monospace font stack accessible by both desktop and mobile operating systems */
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+    font-weight: 900;
     color: #ffffff;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.15), 0 0 2px var(--active);
-    letter-spacing: -1px;
+    letter-spacing: -0.05em;
+    /* Tighter tracking for a condensed tracking appearance */
 }
 
 /* ACTION BUTTON STRUCTS */
