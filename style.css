@@ -5,18 +5,26 @@
     --accent: #ff0055;
 }
 
+/* Force standard box boundaries across the entire system tree */
+*,
+*::before,
+*::after {
+    box-sizing: border-box !important;
+    border-radius: 0px !important;
+}
+
 html,
 body {
+    height: 100%;
     height: 100dvh;
+    /* Dynamic viewport adjustment for mobile browsers */
     margin: 0;
+    padding: 0;
     background: var(--bg);
     color: var(--fg);
     font-family: ui-monospace, "SF Mono", "Roboto Mono", Menlo, Monaco, monospace !important;
     overflow: hidden;
-}
-
-* {
-    border-radius: 0px !important;
+    /* Lock viewport shifting */
 }
 
 /* THE COPIED BANNER FONT AND STYLE RULESET */
@@ -59,4 +67,12 @@ body {
 
 .circle-btn.disabled {
     border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Mobile terminal screen logbox height adjustment */
+@media (max-wmd: 768px) {
+    #feedContent {
+        height: 4rem !important;
+        /* Shaves off overflow spacing on mobile viewports */
+    }
 }
