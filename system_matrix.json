@@ -1,0 +1,90 @@
+{
+    "system_id": "neko_chronos_v3",
+    "player_identity": "Operator",
+    "timestamp_sync": "2026-06-21T17:31:00Z",
+    "character_stats": {
+        "mental_strength": {
+            "level": 1,
+            "exp": 120
+        },
+        "discipline": {
+            "level": 1,
+            "exp": 340
+        },
+        "consistency": {
+            "level": 1,
+            "exp": 80
+        }
+    },
+    "objectives_tree": {
+        "id": "root_daily_loop",
+        "name": "Daily Quest Matrix",
+        "children": [
+            {
+                "id": "intellectual_raid",
+                "name": "Banking Exams Preparation",
+                "type": "milestone",
+                "children": [
+                    {
+                        "id": "quant_trials",
+                        "name": "Quantitative Aptitude",
+                        "type": "sub_quest",
+                        "schedule": {
+                            "start": "08:00",
+                            "end": "10:00"
+                        },
+                        "status": "COMPLETED",
+                        "impact_stat": "mental_strength"
+                    },
+                    {
+                        "id": "reasoning_dungeon",
+                        "name": "Reasoning Ability",
+                        "type": "sub_quest",
+                        "schedule": {
+                            "start": "10:30",
+                            "end": "12:30"
+                        },
+                        "status": "STANDBY",
+                        "impact_stat": "discipline"
+                    },
+                    {
+                        "id": "linguistic_quest",
+                        "name": "English Language",
+                        "type": "sub_quest",
+                        "schedule": {
+                            "start": "16:00",
+                            "end": "17:00"
+                        },
+                        "status": "STANDBY",
+                        "impact_stat": "mental_strength"
+                    },
+                    {
+                        "id": "database_acquisition",
+                        "name": "Banking Awareness",
+                        "type": "sub_quest",
+                        "schedule": {
+                            "start": "17:00",
+                            "end": "18:00"
+                        },
+                        "status": "STANDBY",
+                        "impact_stat": "consistency"
+                    }
+                ]
+            },
+            {
+                "id": "physical_conditioning",
+                "name": "Body Definition & Integrity",
+                "type": "milestone",
+                "children": [
+                    {
+                        "id": "nutrition_matrix",
+                        "name": "High-Protein Fueling",
+                        "type": "sub_quest",
+                        "status": "PENDING",
+                        "impact_stat": "consistency"
+                    }
+                ]
+            }
+        ]
+    }
+}

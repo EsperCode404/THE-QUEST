@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>[ QUEST TRACKING INTERFACE ]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main id="app"
+        class="max-w-md mx-auto h-screen flex flex-col justify-between px-4 py-6 bg-black relative select-none">
+
+        <header class="w-full flex flex-col flex-shrink-0 border-b border-white/10 pb-3">
+            <div class="flex items-center justify-between">
+                <div id="dayLabel" class="copied-banner-style text-[#00f0ff]">
+                    SUN, JUN 21, 2026
+                </div>
+
+                <div class="flex items-center gap-2 font-mono">
+                    <span id="questStatusText" class="text-[10px] font-bold text-white/40 tracking-widest">TRACK:
+                        STDBY</span>
+                    <button id="questCircleBtn" aria-pressed="false"
+                        class="circle-btn w-4 h-4 rounded-full flex items-center justify-center bg-transparent border border-[#00f0ff] focus:outline-none">
+                        <span class="circle-inner w-1.5 h-1.5 rounded-full bg-transparent"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-baseline mt-2">
+                <span class="font-mono text-[10px] text-white/30 tracking-widest">REALTIME CLOCK</span>
+                <div id="clock" class="copied-banner-style text-white">17:55:28</div>
+            </div>
+        </header>
+
+        <section id="activeQuest" class="w-full flex flex-col justify-center flex-grow my-auto py-4">
+            <div class="w-full flex justify-between items-baseline border-b border-white/10 pb-1">
+                <span id="questTag" class="copied-banner-style text-[#ff0055]"> [BANKING AWARENESS DATABASE
+                    ACQUISITION]</span>
+                <span id="questState"
+                    class="font-mono text-[10px] text-[#00f0ff] font-bold tracking-wider">STANDBY</span>
+            </div>
+
+            <h1 id="questTitle"
+                class="font-mono text-xl font-black text-white tracking-wide mt-3 uppercase break-words leading-tight">
+                BANKING AWARENESS DATABASE ACQUISITION
+            </h1>
+
+            <p id="questDescription" class="font-mono text-xs text-[#ff0055] font-bold tracking-wide mt-2 uppercase">
+                ⚠️ EXECUTE THIS QUEST IMMEDIATELY. NO DELAYS.
+            </p>
+
+            <div class="mt-8 border-l-2 border-[#00f0ff] pl-3">
+                <div class="font-mono text-[11px] font-bold text-[#00f0ff] tracking-widest uppercase">
+                    ⏳ TIME REMAINING
+                </div>
+                <div id="timeRemaining" class="text-5xl font-black text-white tracking-tighter mt-1 cyberpunk-clock">
+                    00:04:12
+                </div>
+            </div>
+        </section>
+
+        <section id="systemFeed" class="w-full flex flex-col flex-shrink-0">
+            <div id="feedContent"
+                class="w-full h-16 font-mono text-[10px] text-white/40 bg-[#050506] border border-white/10 p-3 overflow-hidden leading-normal whitespace-pre-wrap break-all select-none">
+                [SYSTEM] Visual parameters synchronized.
+            </div>
+            <div class="w-full font-mono text-[9px] text-white/20 mt-2 flex justify-between items-center select-none">
+                <span id="nextWindow">NEXT SEQUENCE: SYNCHRONIZING...</span>
+                <span>[ V3.0 ]</span>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
