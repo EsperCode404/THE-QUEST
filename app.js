@@ -23,8 +23,23 @@
 
     let trackingEnabled = false;
     let swRegistration = null;
-    let triggeredAlarms = new Set(); // Tracks fired alerts across current date cycles
     let focusBreachCount = 0; // Focus protocol accountability counter
+
+    // PERSISTENT MEMORY MATRIX: Load existing fired alarms from browser storage, or start fresh
+    let triggeredAlarms = new Set(JSON.parse(localStorage.getItem('system_fired_alarms') || '[]'));
+
+    // HOURLY MAINTENANCE: Flush old alarms from previous calendar dates on startup
+    const todayStr = new Date().toDateString();
+    let memoryAltered = false;
+    triggeredAlarms.forEach(key => {
+        if (!key.endsWith(todayStr)) {
+            triggeredAlarms.delete(key);
+            memoryAltered = true;
+        }
+    });
+    if (memoryAltered) {
+        localStorage.setItem('system_fired_alarms', JSON.stringify([...triggeredAlarms]));
+    }
 
     function pad(n) { return String(n).padStart(2, '0'); }
 
@@ -83,12 +98,14 @@
             // Check Pre-Quest Warning Alert Trigger Window
             if (now >= warningTime && now < startTime && !triggeredAlarms.has(warningKey)) {
                 triggeredAlarms.add(warningKey);
+                localStorage.setItem('system_fired_alarms', JSON.stringify([...triggeredAlarms])); // Lock to storage
                 sendSystemPush(`⚠️ SYSTEM INTERRUPT: NEXT INITIALIZATION`, `5 minutes until quest window activates: ${w.name}`, warningKey);
             }
 
             // Check Quest Completion Target Window
             if (now >= endTime && !triggeredAlarms.has(completeKey)) {
                 triggeredAlarms.add(completeKey);
+                localStorage.setItem('system_fired_alarms', JSON.stringify([...triggeredAlarms])); // Lock to storage
                 sendSystemPush(`✅ QUEST COMPLETED`, `${w.name} sequence complete. Clear workspace immediately.`, completeKey);
             }
         });
