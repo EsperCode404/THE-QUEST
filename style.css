@@ -173,6 +173,31 @@ button,
 }
 
 /* ==========================================================================
+   DYNAMIC OBJECTIVE STATE PROTOCOL
+   ========================================================================== */
+/* ==========================================================================
+   DYNAMIC OBJECTIVE STATE PROTOCOL (REFINED HUD BUILD)
+   ========================================================================== */
+.active-quest-glow {
+    font-family: "Orbitron", ui-monospace, monospace !important;
+    /* Force mechanical system matrix font */
+    color: #ffffff !important;
+    /* Keep text clean white for core legibility */
+    font-weight: 900 !important;
+    font-size: 1.85rem !important;
+    /* Slighly scale up text weight hierarchy */
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+
+    /* Dual-layered refined tactical illumination */
+    text-shadow:
+        0 0 4px var(--active),
+        0 0 12px rgba(0, 240, 255, 0.4);
+
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
    CRITICAL DATA OVERRIDE: FOOTER SEQUENCE HIGHLIGHT
    ========================================================================== */
 

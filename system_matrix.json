@@ -1,90 +1,55 @@
 {
     "system_id": "neko_chronos_v3",
     "player_identity": "Operator",
-    "timestamp_sync": "2026-06-21T17:31:00Z",
-    "character_stats": {
-        "mental_strength": {
-            "level": 1,
-            "exp": 120
+    "blueprint_version": "3.1.0",
+    "schedule_matrix": [
+        {
+            "id": "quant_trials",
+            "title": "Quantitative Aptitude",
+            "start_time": "08:00",
+            "end_time": "10:00",
+            "type": "CORE_QUEST"
         },
-        "discipline": {
-            "level": 1,
-            "exp": 340
+        {
+            "id": "reasoning_dungeon",
+            "title": "Reasoning Ability",
+            "start_time": "10:30",
+            "end_time": "12:30",
+            "type": "CORE_QUEST"
         },
-        "consistency": {
-            "level": 1,
-            "exp": 80
+        {
+            "id": "ecom_matrix",
+            "title": "E-com Listings & Trend Analysis",
+            "start_time": "13:30",
+            "end_time": "14:30",
+            "type": "OPERATIONAL_QUEST"
+        },
+        {
+            "id": "linguistic_quest",
+            "title": "English Language Focus",
+            "start_time": "16:00",
+            "end_time": "17:00",
+            "type": "CORE_QUEST"
+        },
+        {
+            "id": "database_acquisition",
+            "title": "Banking Awareness News",
+            "start_time": "17:00",
+            "end_time": "18:00",
+            "type": "CORE_QUEST"
+        },
+        {
+            "id": "physical_conditioning",
+            "title": "Evening Gym Conditioning (PPL)",
+            "start_time": "18:30",
+            "end_time": "19:30",
+            "type": "PHYSICAL_QUEST"
         }
-    },
-    "objectives_tree": {
-        "id": "root_daily_loop",
-        "name": "Daily Quest Matrix",
-        "children": [
-            {
-                "id": "intellectual_raid",
-                "name": "Banking Exams Preparation",
-                "type": "milestone",
-                "children": [
-                    {
-                        "id": "quant_trials",
-                        "name": "Quantitative Aptitude",
-                        "type": "sub_quest",
-                        "schedule": {
-                            "start": "08:00",
-                            "end": "10:00"
-                        },
-                        "status": "COMPLETED",
-                        "impact_stat": "mental_strength"
-                    },
-                    {
-                        "id": "reasoning_dungeon",
-                        "name": "Reasoning Ability",
-                        "type": "sub_quest",
-                        "schedule": {
-                            "start": "10:30",
-                            "end": "12:30"
-                        },
-                        "status": "STANDBY",
-                        "impact_stat": "discipline"
-                    },
-                    {
-                        "id": "linguistic_quest",
-                        "name": "English Language",
-                        "type": "sub_quest",
-                        "schedule": {
-                            "start": "16:00",
-                            "end": "17:00"
-                        },
-                        "status": "STANDBY",
-                        "impact_stat": "mental_strength"
-                    },
-                    {
-                        "id": "database_acquisition",
-                        "name": "Banking Awareness",
-                        "type": "sub_quest",
-                        "schedule": {
-                            "start": "17:00",
-                            "end": "18:00"
-                        },
-                        "status": "STANDBY",
-                        "impact_stat": "consistency"
-                    }
-                ]
-            },
-            {
-                "id": "physical_conditioning",
-                "name": "Body Definition & Integrity",
-                "type": "milestone",
-                "children": [
-                    {
-                        "id": "nutrition_matrix",
-                        "name": "High-Protein Fueling",
-                        "type": "sub_quest",
-                        "status": "PENDING",
-                        "impact_stat": "consistency"
-                    }
-                ]
-            }
-        ]
+    ],
+    "identity_buffs": {
+        "hydration_target": "2-3L Water",
+        "caloric_maintenance": "2800-3294 kcal",
+        "detox_protocol": "No Phone 30m Post-Wake / Pre-Sleep",
+        "discipline_rule": "React Slow (5-Sec Rule)"
     }
 }
