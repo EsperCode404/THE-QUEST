@@ -11,7 +11,7 @@
     const questCircleBtn = document.getElementById('questCircleBtn');
     const questStatusText = document.getElementById('questStatusText');
 
-    // INTEGRATED MATRIX: Restored full 24-hour approved tracking layout
+    // INTEGRATED MATRIX: Approved tracking layout
     const QUEST_WINDOWS = [
         { id: "quant_trials", name: "Quantitative Aptitude", tag: "[QUANTITATIVE APTITUDE]", start: "08:00", end: "10:00" },
         { id: "reasoning_dungeon", name: "Reasoning Ability", tag: "[REASONING ABILITY]", start: "10:30", end: "12:30" },
@@ -24,6 +24,7 @@
     let trackingEnabled = false;
     let swRegistration = null;
     let triggeredAlarms = new Set(); // Tracks fired alerts across current date cycles
+    let focusBreachCount = 0; // Focus protocol accountability counter
 
     function pad(n) { return String(n).padStart(2, '0'); }
 
@@ -148,10 +149,14 @@
             if (questDesc) questDesc.textContent = "⚠️ EXECUTE THIS QUEST IMMEDIATELY. NO DELAYS.";
             updateCountdown(active.end, now);
         } else {
-            trackingEnabled = false;
-            updateButtonState(false);
-            if (questCircleBtn) questCircleBtn.style.cursor = 'not-allowed';
+            // Force disable tracking if we enter a rest cycle naturally
+            if (trackingEnabled) {
+                trackingEnabled = false;
+                document.body.classList.remove('system-lockdown-active');
+                updateButtonState(false);
+            }
 
+            if (questCircleBtn) questCircleBtn.style.cursor = 'not-allowed';
             if (questTag) questTag.textContent = "[SYSTEM RESTCYCLE]";
 
             // DYNAMIC DE-ACTIVATION: Strip away the glow protocol during system rest cycles
@@ -222,6 +227,7 @@
         }
     }
 
+    // INTERACTIVE ACCUNTABILITY INTERRUPT INTERFACE
     if (questCircleBtn) {
         questCircleBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -230,14 +236,45 @@
 
             trackingEnabled = !trackingEnabled;
             updateButtonState(trackingEnabled);
-            logToFeed(`Quest status changed: ${trackingEnabled ? 'RUNNING' : 'STANDBY'}`);
+
+            if (trackingEnabled) {
+                document.body.classList.add('system-lockdown-active');
+                logToFeed("🔴 FOCUS PROTOCOL LOCKED: DO NOT DEFECT FROM SYSTEM WORKSPACE.");
+            } else {
+                document.body.classList.remove('system-lockdown-active');
+                logToFeed("SYSTEM WARNING: FOCUS PROTOCOL DE-ACTIVATED MANUALLY.");
+                focusBreachCount = 0; // Reset focus metric profile
+            }
+
+            updateUI();
         });
     }
+
+    // TAB VISIBILITY PROXIMITY SENSOR
+    document.addEventListener('visibilitychange', () => {
+        if (trackingEnabled && document.hidden) {
+            focusBreachCount++;
+            logToFeed(`🔴 DISCIPLINE BREACH #${focusBreachCount}: PLAYER DEFECTED FROM ACTIVE TERMINAL STATE.`);
+
+            if (Notification.permission === "granted") {
+                new Notification("🚨 FOCUS PROTOCOL BREACHED", {
+                    body: "Return to your objective immediately. Neko is logging this session defiance.",
+                    icon: "/favicon.ico"
+                });
+            }
+        }
+    });
 
     function logToFeed(text) {
         if (!feedContentEl) return;
         const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
         feedContentEl.textContent = `[${timestamp}] ${text}\n` + feedContentEl.textContent;
+    }
+
+    // Add interactivity hooks to tracking module header elements
+    const trackBox = document.querySelector('.track-toggle-clickable') || questCircleBtn;
+    if (trackBox && trackBox !== questCircleBtn) {
+        trackBox.addEventListener('click', () => questCircleBtn.click());
     }
 
     updateUI();
